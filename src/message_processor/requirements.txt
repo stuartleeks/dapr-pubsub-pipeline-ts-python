@@ -1,0 +1,6 @@
+FastAPI
+dapr-ext-fastapi
+dapr
+cloudevents
+uvicorn
+typing-extensions
