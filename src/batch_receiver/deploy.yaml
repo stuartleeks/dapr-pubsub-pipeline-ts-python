@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: batch-receiver
+  labels:
+    app: batch-receiver
+    azure.workload.identity/use: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: batch-receiver
+  template:
+    metadata:
+      labels:
+        app: batch-receiver
+        azure.workload.identity/use: "true"
+        azure.workload.identity/inject-proxy-sidecar: "true"
+      annotations:
+        # https://docs.dapr.io/reference/arguments-annotations-overview/
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "batch-receiver"
+        dapr.io/app-port: "6001"
+        dapr.io/enable-api-logging: "true"
+    spec:
+      serviceAccountName: batch-receiver
+      containers:
+      - name: batch-receiver
+        image: $REGISTRY_NAME/batch_receiver:latest
+        env:
+        - name: APP_PORT
+          value: "6001"
+        ports:
+        - containerPort: 6001
+        imagePullPolicy: Always

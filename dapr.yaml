@@ -2,7 +2,7 @@ version: 1
 common:
   resourcesPath: ./components-local
 apps:
-  - appID: processing_service
+  - appID: processing-service
     appDirPath: src/processing_service
     appPort: 6003
     command: ["uvicorn", "app:app"]
@@ -12,13 +12,13 @@ apps:
       DELAY: 1
 
 
-  - appID: message_processor
+  - appID: message-processor
     appDirPath: src/message_processor
     appPort: 6002
     command: ["uvicorn", "app:app"]
     configFilePath: ../../components-local/daprConfig.yaml
 
-  - appID: batch_receiver
+  - appID: batch-receiver
     appDirPath: src/batch_receiver
     appPort: 6001
     command: ["uvicorn", "app:app"]

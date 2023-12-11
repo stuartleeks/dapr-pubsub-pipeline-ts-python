@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: processing-service
+  labels:
+    app: processing-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: processing-service
+  template:
+    metadata:
+      labels:
+        app: processing-service
+      annotations:
+        # https://docs.dapr.io/reference/arguments-annotations-overview/
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "processing-service"
+        dapr.io/app-port: "6003"
+        dapr.io/enable-api-logging: "true"
+    spec:
+      containers:
+      - name: processing-service
+        image: $REGISTRY_NAME/processing_service:latest
+        env:
+        - name: APP_PORT
+          value: "6003"
+        ports:
+        - containerPort: 6003
+        imagePullPolicy: Always

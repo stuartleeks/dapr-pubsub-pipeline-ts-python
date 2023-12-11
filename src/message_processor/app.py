@@ -38,7 +38,7 @@ def orders_subscriber():
     print(f"message_processor: got message: {event_id}", flush=True)
 
     resp = dapr_client.invoke_method(
-        app_id="processing_service",
+        app_id="processing-service",
         method_name="process",
         http_verb="POST",
         data=json.dumps({"id": event_id, "content": message}),
@@ -47,5 +47,5 @@ def orders_subscriber():
     print(f"message_processor: got response: {resp.text}", flush=True)
     return json.dumps({"success": True}), 200, {"ContentType": "application/json"}
 
-
+print(f"Starting message_processor on port {app_port}", flush=True)
 app.run(port=app_port)

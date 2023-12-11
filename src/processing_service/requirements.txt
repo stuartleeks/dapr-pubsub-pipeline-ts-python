@@ -1,5 +1,4 @@
-FastAPI
-dapr-ext-fastapi
+flask
 dapr
 cloudevents
 uvicorn

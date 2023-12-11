@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: message-processor
+  labels:
+    app: message-processor
+    azure.workload.identity/use: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: message-processor
+  template:
+    metadata:
+      labels:
+        app: message-processor
+        azure.workload.identity/use: "true"
+        azure.workload.identity/inject-proxy-sidecar: "true"
+      annotations:
+        # https://docs.dapr.io/reference/arguments-annotations-overview/
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "message-processor"
+        dapr.io/app-port: "6002"
+        dapr.io/enable-api-logging: "true"
+    spec:
+      serviceAccountName: message-processor
+      containers:
+      - name: message-processor
+        image: $REGISTRY_NAME/message_processor:latest
+        env:
+        - name: APP_PORT
+          value: "6002"
+        ports:
+        - containerPort: 6002
+        imagePullPolicy: Always

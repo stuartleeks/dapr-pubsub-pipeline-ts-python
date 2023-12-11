@@ -47,5 +47,5 @@ def do_stuff1():
     )
 
 
-print(f"Starting processor on port {port}", flush=True  )
+print(f"Starting processing-service on port {port}", flush=True  )
 app.run(port=port)

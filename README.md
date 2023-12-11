@@ -3,10 +3,10 @@
 Example of a Dapr pubsub pipeline with TypeScript and Python
 
 - [dapr-pubsub-pipeline-ts-python](#dapr-pubsub-pipeline-ts-python)
-	- [Overview](#overview)
-	- [Running the project](#running-the-project)
-	- [Cleaning up Dapr logs](#cleaning-up-dapr-logs)
-	- [Running in Kubernetes](#running-in-kubernetes)
+  - [Overview](#overview)
+  - [Running the project](#running-the-project)
+  - [Cleaning up Dapr logs](#cleaning-up-dapr-logs)
+  - [Running in Kubernetes](#running-in-kubernetes)
 
 
 ## Overview
@@ -56,8 +56,10 @@ These can be cleaned up by running `find . -name ".dapr" | rm -rf` from the root
 
 ## Running in Kubernetes
 
-TODO: deploy to K8s
+To deploy to AKS, copy `sample.env` to `.env` and update the values.
+Then run `just deploy`.
 
+This will create a Service Bus namespace and queues, Container Registry, and AKS cluster.
+It will then build and push the container images and deploy the services to AKS.
 
-
-
+After deployment, run `kubectl get pods` to see the deployed pods.
